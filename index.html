@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MedCare Chatbot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-50 flex flex-col items-center justify-center min-h-screen">
+  <div class="w-full max-w-md bg-white shadow-lg rounded-xl p-6">
+    <h1 class="text-2xl font-bold text-blue-700 mb-4 text-center">MedCare Chatbot 💬</h1>
+    <div id="chatbox" class="h-64 overflow-y-auto border rounded p-3 mb-4 bg-gray-50">
+      <div class="text-sm text-gray-600 mb-2">🤖 Hello! I'm your medical assistant. How can I help you today?</div>
+    </div>
+    <form id="chat-form" class="flex">
+      <input
+        type="text"
+        id="user-input"
+        placeholder="Type your message..."
+        class="flex-1 border rounded-l px-4 py-2 focus:outline-none"
+      />
+      <button
+        type="submit"
+        class="bg-blue-600 text-white px-4 py-2 rounded-r hover:bg-blue-700"
+      >
+        Send
+      </button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('chat-form');
+    const input = document.getElementById('user-input');
+    const chatbox = document.getElementById('chatbox');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const userMessage = input.value.trim();
+      if (userMessage === '') return;
+
+      // Add user message
+      chatbox.innerHTML += `<div class="text-right text-sm text-blue-800 mb-2">🙋 ${userMessage}</div>`;
+
+      // Simulate bot reply
+      setTimeout(() => {
+        const reply = generateBotReply(userMessage);
+        chatbox.innerHTML += `<div class="text-sm text-gray-600 mb-2">🤖 ${reply}</div>`;
+        chatbox.scrollTop = chatbox.scrollHeight;
+      }, 500);
+
+      input.value = '';
+    });
+
+    function generateBotReply(message) {
+      // Basic static responses
+      if (message.toLowerCase().includes('fever')) return "Make sure to rest and stay hydrated. Would you like tips or nearby clinics?";
+      if (message.toLowerCase().includes('headache')) return "Try resting and staying away from screens. Need help with medication options?";
+      return "I'm here to assist! Could you please provide more details about your symptoms?";
+    }
+  </script>
+</body>
+</html>
